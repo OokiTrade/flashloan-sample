@@ -42,7 +42,6 @@ yarn install
 
 Function signature for bZx flash loan
 ``` 
-    # TODO
     function flashBorrow(
         uint256 borrowAmount,
         address borrower,
@@ -60,6 +59,25 @@ Function signature for bZx flash loan
 + returns signature funciton operation results. 
 
 To take a flash loan in USDC you need to call `flashBorrow` on the iUSDC contract. List of iToken contracts can be found [here](https://bzx.network/itokens)
+
+`BZxFlashLoaner` is an example contract that takes opportunity of the bZx flash loans. it does so in several steps:
+1. Transaction entry point `doStuffWithFlashLoan`
+2. Loan initialization `initiateFlashLoanBzx`
+3. operation with loaned money `executeOperation`
+4. return loaned money before executeOperation end `repayFlashLoan`
+5. final checks `doStuffWithFlashLoan` . you can actually revert a transaction at this time if you consider your transaction not profitable for example
+
+
+
+Flash Loans are uncolaterized loans that are required to be returned in the same transaction. There is no real world analogy. the closes you can compare is with `overnight market` or `Repurchase Agreement` but without collateral.
+
+Please note currently bZx flash loans are FREE. you pay ZERO fees for taking a flash loan. 
+
+There are a couple of use cases where someone might use flash loans:
++ Arbitrage
++ Liquidations
++ re-finance exiting loans
++ other
 
 ## Testing
 

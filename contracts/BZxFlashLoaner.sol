@@ -4,17 +4,16 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./IToken.sol";
+import "./IToken.sol"; 
 
 contract BZxFlashLoaner is Ownable {
     function initiateFlashLoanBzx(
-        address iToken,
         address loanToken,
+        address iToken,
         uint256 flashLoanAmount
     ) internal {
         IToken iTokenContract = IToken(iToken);
-
-        iTokenContract.flashBorrow (
+        iTokenContract.flashBorrow(
             flashLoanAmount,
             address(this),
             address(this),
@@ -40,18 +39,27 @@ contract BZxFlashLoaner is Ownable {
         address loanToken,
         address iToken,
         uint256 loanAmount
-    ) internal {
-        // log3(bytes32("executeOperation"), loanToken, iToken, loanAmount);
-        emit ExecuteOperation(
-            loanToken,
-            iToken,
-            loanAmount
+    ) external {
+        emit BalanceOf(
+            IERC20(loanToken).balanceOf(address(this))
         );
+        emit ExecuteOperation(loanToken, iToken, loanAmount);
         repayFlashLoan(loanToken, iToken, loanAmount);
     }
 
-    function doStuffWithFlashLoan() public onlyOwner {
-        // initiateFlashLoanBzx();
+    function doStuffWithFlashLoan(address token, address iToken, uint256 amount) external onlyOwner {
+
+        emit BalanceOf(
+            IERC20(token).balanceOf(address(this))
+        );
+
+        initiateFlashLoanBzx(token, iToken, amount);
+
+        emit BalanceOf(
+            IERC20(token).balanceOf(address(this))
+        );
+
+        // after loan checks and what not.
     }
 
     event ExecuteOperation(
@@ -59,4 +67,6 @@ contract BZxFlashLoaner is Ownable {
         address iToken,
         uint256 loanAmount
     );
+
+    event BalanceOf(uint256 balance);
 }

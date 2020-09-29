@@ -3,3 +3,6 @@ __pycache__
 .hypothesis/
 build/
 reports/
+node_modules/
+.vscode/
+package-lock.json

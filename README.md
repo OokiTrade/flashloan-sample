@@ -31,9 +31,35 @@
 
 * [python3](https://www.python.org/downloads/release/python-368/) version 3.6 or greater, python3-dev
 * [ganache-cli](https://github.com/trufflesuite/ganache-cli) - tested with version [6.10.1](https://github.com/trufflesuite/ganache-cli/releases/tag/v6.10.1)
-* [brownie](https://github.com/eth-brownie/brownie/) version 1.10.6 or greater
+* [brownie](https://github.com/eth-brownie/brownie/) version 1.11.6 or greater
 
 ## Documentation and Support
+
+Install all necessary packages with
+```bash
+yarn install
+```
+
+Function signature for bZx flash loan
+``` 
+    # TODO
+    function flashBorrow(
+        uint256 borrowAmount,
+        address borrower,
+        address target,
+        string calldata signature,
+        bytes calldata data
+    ) external payable returns (bytes memory);
+```
+
++ borrowAmount - amount you want to flash borrow
++ borrower - receiver of the flash borrow call
++ target - target address for flash borrow callback
++ signature - function signature to be encoded with `abi.encodePacked(bytes4(keccak256(bytes(signature))), data)`, if not provided `data` will be used as callData instead
++ data - target address function arguments.
++ returns signature funciton operation results. 
+
+To take a flash loan in USDC you need to call `flashBorrow` on the iUSDC contract. List of iToken contracts can be found [here](https://bzx.network/itokens)
 
 ## Testing
 
@@ -46,7 +72,7 @@ pip install -r requirements.txt
 Run the all tests with:
 
 ```bash
-brownie test
+brownie test --network mainnet-fork
 ```
 
 ## License

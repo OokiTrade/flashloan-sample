@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "brownie test",
+    "test": "brownie test --network mainnet-fork",
     "prettier": "prettier --write **/*.sol",
     "analyze-contracts": "slither .",
     "lint-contracts": "solhint contracts/**/*.sol"

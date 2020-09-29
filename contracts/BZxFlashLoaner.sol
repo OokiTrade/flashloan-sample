@@ -11,20 +11,21 @@ contract BZxFlashLoaner is Ownable {
         address loanToken,
         address iToken,
         uint256 flashLoanAmount
-    ) internal {
+    ) internal returns (bytes memory success) {
         IToken iTokenContract = IToken(iToken);
-        iTokenContract.flashBorrow(
-            flashLoanAmount,
-            address(this),
-            address(this),
-            "",
-            abi.encodeWithSignature(
-                "executeOperation(address,address,uint256)",
-                loanToken,
-                iToken,
-                flashLoanAmount
-            )
-        );
+        return
+            iTokenContract.flashBorrow(
+                flashLoanAmount,
+                address(this),
+                address(this),
+                "",
+                abi.encodeWithSignature(
+                    "executeOperation(address,address,uint256)",
+                    loanToken,
+                    iToken,
+                    flashLoanAmount
+                )
+            );
     }
 
     function repayFlashLoan(
@@ -39,10 +40,11 @@ contract BZxFlashLoaner is Ownable {
         address loanToken,
         address iToken,
         uint256 loanAmount
-    ) external {
+    ) external returns (bytes memory success) {
         emit BalanceOf(IERC20(loanToken).balanceOf(address(this)));
         emit ExecuteOperation(loanToken, iToken, loanAmount);
         repayFlashLoan(loanToken, iToken, loanAmount);
+        return bytes("1");
     }
 
     function doStuffWithFlashLoan(
@@ -50,13 +52,29 @@ contract BZxFlashLoaner is Ownable {
         address iToken,
         uint256 amount
     ) external onlyOwner {
+        bytes memory result;
         emit BalanceOf(IERC20(token).balanceOf(address(this)));
 
-        initiateFlashLoanBzx(token, iToken, amount);
+        result = initiateFlashLoanBzx(token, iToken, amount);
 
         emit BalanceOf(IERC20(token).balanceOf(address(this)));
 
         // after loan checks and what not.
+        if (hashCompareWithLengthCheck(bytes("1"), result)) {
+            revert("failed executeOperation");
+        }
+    }
+
+    function hashCompareWithLengthCheck(bytes memory a, bytes memory b)
+        pure
+        internal
+        returns (bool)
+    {
+        if (a.length != b.length) {
+            return false;
+        } else {
+            return keccak256(a) == keccak256(b);
+        }
     }
 
     event ExecuteOperation(

@@ -1,7 +1,7 @@
 pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
-// "SPDX-License-Identifier: UNLICENSED"
+// "SPDX-License-Identifier: Apache-2.0"
 
 interface IToken {
     function flashBorrow(

@@ -1,0 +1,46 @@
+{
+  "name": "flashloan-bzx",
+  "version": "1.0.0",
+  "description": "<br/> <p align=\"center\"><img src=\"https://bzx.network/images/logo.svg\" width=\"256\" /></p>",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "brownie test --network mainnet-fork",
+    "prettier": "prettier --write **/*.sol",
+    "analyze-contracts": "slither .",
+    "lint-contracts": "solhint contracts/**/*.sol"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RomanHiden/flashloan-bzx.git"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "flashloan",
+    "bZx"
+  ],
+  "author": "Copyright 2017-2020, bZeroX, LLC. All Rights Reserved.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RomanHiden/flashloan-bzx/issues"
+  },
+  "homepage": "https://github.com/RomanHiden/flashloan-bzx#readme",
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "prettier-plugin-solidity": "^1.0.0-alpha.58",
+    "solhint": "^3.2.1",
+    "solhint-plugin-prettier": "0.0.5"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn analyze-contracts && yarn lint-contracts && yarn test"
+    }
+  }
+}

@@ -30,8 +30,6 @@
   },
   "homepage": "https://github.com/RomanHiden/flashloan-bzx#readme",
   "devDependencies": {
-    "@openzeppelin/cli": "^2.8.2",
-    "eslint": "^7.10.0",
     "husky": "^4.3.0",
     "prettier-plugin-solidity": "^1.0.0-alpha.58",
     "solhint": "^3.2.1",

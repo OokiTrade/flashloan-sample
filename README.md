@@ -87,6 +87,12 @@ To run the tests, first install the developer dependencies:
 pip install -r requirements.txt
 ```
 
+Make sure you have environemtn variables setup for ETHERSCAN and INFIRA
+```
+export ETHERSCAN_TOKEN= ...
+export WEB3_INFURA_PROJECT_ID= ...
+```
+
 Run the all tests with:
 
 ```bash

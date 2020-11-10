@@ -79,6 +79,9 @@ There are a couple of use cases where someone might use flash loans:
 + re-finance exiting loans
 + other
 
+## Support
+For any dev related questions and support please join our Discord [#dev](https://discord.gg/6uW2R39u) channel. We have a very active community.
+
 ## Testing
 
 To run the tests, first install the developer dependencies:

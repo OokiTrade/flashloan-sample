@@ -80,7 +80,7 @@ There are a couple of use cases where someone might use flash loans:
 + other
 
 ## Support
-For any dev related questions and support please join our discord [#dev](https://discord.gg/6uW2R39u) channel. We have very supportive community.
+For any dev related questions and support please join our Discord [#dev](https://discord.gg/6uW2R39u) channel. We have a very active community.
 
 ## Testing
 
